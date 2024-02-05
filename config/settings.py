@@ -32,7 +32,12 @@ INSTALLED_APPS = [
 
 # packages
 
-INSTALLED_APPS += ["rest_framework", "django_filters", "corsheaders", "djoser"]
+INSTALLED_APPS += [
+    "rest_framework",
+    "django_filters",
+    "corsheaders",
+    "djoser",
+]
 
 
 # apps
