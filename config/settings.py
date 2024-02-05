@@ -1,23 +1,18 @@
 from datetime import timedelta
 import os
-from pathlib import Path
 import environ
 
 root = environ.Path(__file__) - 2
 env = environ.Env()
 environ.Env.read_env(env.str(root(), ".env"))
 
-
 BASE_DIR = root()
 
-
 SECRET_KEY = env.str("SECRET_KEY")
-
 
 DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = env.str("ALLOWED_HOSTS", default="").split(" ")
-
 
 # base
 
@@ -39,18 +34,17 @@ INSTALLED_APPS += [
     "djoser",
 ]
 
-
 # apps
 INSTALLED_APPS += [
     "api",
     "common",
+    "breaks",
 ]
 
 # after apps
 INSTALLED_APPS += [
     "drf_spectacular",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -83,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
@@ -98,7 +91,6 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     },
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -136,7 +128,7 @@ USE_TZ = True
 #############################
 
 REST_FRAMEWORK = {
-    "DEFAULT_PREMISSION_CLASSES": ("rest_framework.premissons.,isAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.,isAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.BasicAuthentication",
@@ -150,7 +142,6 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
-
 #############################
 
 # STATIC AND MEDIA
@@ -163,7 +154,6 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_TEST_ROOT = os.path.join(BASE_DIR, "media/test/")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 #############################
 
